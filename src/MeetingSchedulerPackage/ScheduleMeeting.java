@@ -16,18 +16,51 @@ public class ScheduleMeeting {
         participants.add(alice);
         participants.add(bob);
         while(true) {
-            //Validations must also be added to check the inputs. Due to time constraint, couldn't add.
             System.out.println("Enter day:");
             String day = scanner.nextLine();
+            while (!Validations.isValidDay(day)) {
+                System.out.println("Invalid day. Please enter a valid day of the week:");
+                day = scanner.nextLine();
+            }
 
             System.out.println("Enter start time:");
             String startTime = scanner.nextLine();
+            while (!Validations.isValidTime(startTime)) {
+                System.out.println("Invalid start time. Please enter time in HH:mm format:");
+                startTime = scanner.nextLine();
+            }
 
             System.out.println("Enter end time:");
             String endTime = scanner.nextLine();
+            while (!Validations.isValidTime(endTime)) {
+                System.out.println("Invalid end time. Please enter time in HH:mm format:");
+                endTime = scanner.nextLine();
+            }
 
+            // Validate time range
+            while (!Validations.isValidTimeRange(startTime, endTime)) {
+                System.out.println("End time must be after start time. Please re-enter times:");
+
+                System.out.print("Enter start time (HH:mm): ");
+                startTime = scanner.nextLine();
+                while (!Validations.isValidTime(startTime)) {
+                    System.out.println("Invalid start time. Please enter time in HH:mm format:");
+                    startTime = scanner.nextLine();
+                }
+
+                System.out.print("Enter end time (HH:mm): ");
+                endTime = scanner.nextLine();
+                while (!Validations.isValidTime(endTime)) {
+                    System.out.println("Invalid end time. Please enter time in HH:mm format:");
+                    endTime = scanner.nextLine();
+                }
+            }
             System.out.println("Enter room number:");
             String roomNumber = scanner.nextLine();
+            while(!Validations.isValidRoomNumber(roomNumber)){
+                System.out.println("Invalid room number. Room numbers must be integer.Please enter room number:");
+                roomNumber = scanner.nextLine();
+            }
             MeetingRoom room = new MeetingRoom("Room"+roomNumber);
             Meeting meeting = new Meeting(day, startTime, endTime, room, participants);
 
